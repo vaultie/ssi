@@ -10,7 +10,7 @@ use ssi_data_integrity_core::{
     canonicalization::{CanonicalizeClaimsAndConfiguration, HashCanonicalClaimsAndConfiguration},
     signing::{Base58Btc, MultibaseSigning},
     suite::AddProofContext,
-    StandardCryptographicSuite, TypeRef,
+    StandardCryptographicSuite, Type, TypeRef,
 };
 use ssi_verification_methods::Ed25519VerificationKey2020;
 use static_iref::{iri, iri_ref};
@@ -62,5 +62,19 @@ impl StandardCryptographicSuite for Ed25519Signature2020 {
 
     fn type_(&self) -> TypeRef {
         TypeRef::Other(Self::NAME)
+    }
+}
+
+impl TryFrom<Type> for Ed25519Signature2020 {
+    type Error = ();
+
+    fn try_from(value: Type) -> Result<Self, Self::Error> {
+        if value
+            == <Ed25519Signature2020 as StandardCryptographicSuite>::type_(&Ed25519Signature2020)
+        {
+            Ok(Ed25519Signature2020)
+        } else {
+            Err(())
+        }
     }
 }
