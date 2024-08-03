@@ -4,7 +4,9 @@ use std::{borrow::Borrow, ops::Deref, sync::Arc};
 mod cache;
 pub use cache::Cached;
 
+#[cfg(feature = "http")]
 mod http;
+#[cfg(feature = "http")]
 pub use http::HttpClient;
 
 #[derive(Debug, thiserror::Error)]
