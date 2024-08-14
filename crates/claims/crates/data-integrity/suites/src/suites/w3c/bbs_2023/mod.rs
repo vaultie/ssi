@@ -8,8 +8,8 @@ use ssi_data_integrity_core::{
         ConfigurationAlgorithm, ConfigurationError, CryptographicSuiteSelect, InputProofOptions,
         SelectionError, SelectiveCryptographicSuite,
     },
-    CryptosuiteStr, DataIntegrity, ProofConfiguration, ProofRef, StandardCryptographicSuite, Type,
-    TypeRef, UnsupportedProofSuite,
+    CryptosuiteStr, DataIntegrity, ProofConfiguration, ProofRef, StandardCryptographicSuite,
+    TypeRef,
 };
 use ssi_di_sd_primitives::{HmacSha256Key, JsonPointerBuf};
 use ssi_json_ld::{Expandable, ExpandedDocument, JsonLdLoaderProvider, JsonLdNodeObject};
@@ -87,17 +87,6 @@ impl StandardCryptographicSuite for Bbs2023 {
 
     fn type_(&self) -> TypeRef {
         TypeRef::DataIntegrityProof(CryptosuiteStr::new("bbs-2023").unwrap())
-    }
-}
-
-impl TryFrom<Type> for Bbs2023 {
-    type Error = UnsupportedProofSuite;
-
-    fn try_from(value: Type) -> Result<Self, Self::Error> {
-        match value {
-            Type::DataIntegrityProof(c) if c == "bbs-2023" => Ok(Self),
-            ty => Err(UnsupportedProofSuite::Compact(ty)),
-        }
     }
 }
 
