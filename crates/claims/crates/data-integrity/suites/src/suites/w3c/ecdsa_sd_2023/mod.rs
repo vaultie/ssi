@@ -1,8 +1,7 @@
 use serde::Serialize;
 use ssi_data_integrity_core::{
     suite::{CryptographicSuiteSelect, SelectionError, SelectiveCryptographicSuite},
-    CryptosuiteStr, DataIntegrity, ProofRef, StandardCryptographicSuite, Type, TypeRef,
-    UnsupportedProofSuite,
+    CryptosuiteStr, DataIntegrity, ProofRef, StandardCryptographicSuite, TypeRef,
 };
 
 mod configuration;
@@ -69,16 +68,5 @@ where
         derive::add_derived_proof(params.loader(), unsecured_document, options, proof)
             .await
             .map_err(SelectionError::proof_derivation)
-    }
-}
-
-impl TryFrom<Type> for EcdsaSd2023 {
-    type Error = UnsupportedProofSuite;
-
-    fn try_from(value: Type) -> Result<Self, Self::Error> {
-        match value {
-            Type::DataIntegrityProof(c) if c == "ecdsa-sd-2023" => Ok(Self),
-            ty => Err(UnsupportedProofSuite::Compact(ty)),
-        }
     }
 }
