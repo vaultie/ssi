@@ -6,7 +6,6 @@ use iref::Iri;
 pub mod data_integrity;
 mod data_model;
 mod jwt;
-pub mod revocation;
 pub mod syntax;
 
 pub use data_model::*;
