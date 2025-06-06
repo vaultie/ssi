@@ -4,9 +4,6 @@ use std::{borrow::Borrow, ops::Deref, sync::Arc};
 mod cache;
 pub use cache::Cached;
 
-mod http;
-pub use http::HttpClient;
-
 #[derive(Debug, thiserror::Error)]
 pub enum ProviderError {
     #[error("not found")]
